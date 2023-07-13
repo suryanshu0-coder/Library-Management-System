@@ -1,0 +1,30 @@
+#ifndef SHOWBOOKLIST_H
+#define SHOWBOOKLIST_H
+#include<iostream>
+#include<string>
+#include<vector>
+#include<fstream>
+using namespace std;
+string ShowBookList(){
+vector<string> BookLists;
+
+ifstream  BookList("../txt file/BookList.txt");
+string line;
+
+if(BookList.is_open()){
+         while(getline(BookList, line)){
+                  BookLists.push_back(line);
+         }
+
+         for(int i=0; i<BookLists.size();i++){
+                  cout<< BookLists[i] <<endl;
+         }
+} 
+else{
+         cout<< "Unable to open file"<< endl;
+}
+BookList.close();
+return "BookList.txt";
+}
+ #endif
+
