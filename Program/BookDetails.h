@@ -32,32 +32,32 @@ public:
         getline(cin, AuthorName);
     }
 
-    int getSerialNumber()
+    int getSerialNumber()const
     {
         return this->S_No;
     }
 
-    string getBookName()
+    string getBookName()const
     {
         return this->BookName;
     }
 
-    string getAuthorName()
+    string getAuthorName()const
     {
         return this->AuthorName;
     }
 
     void displayBookDetails();
 
-    void ShowBookList(const std::vector<BookDetails> &books)
+    void ShowBookList(const vector<BookDetails> &books)
     {
-        std::cout << "Book List:\n";
+        cout << "Book List:\n";
         for (const BookDetails &book : books)
         {
-            std::cout << "Book Details" << std::endl;
-            std::cout << "Book Name: " << getBookName() << std::endl;
-            std::cout << "Author Name: " << getAuthorName() << std::endl;
-            std::cout << std::endl;
+            cout << "Book Details" << endl;
+            cout << "Book Name: " << getBookName() << endl;
+            cout << "Author Name: " << getAuthorName() << endl;
+            cout << endl;
         }
     }
 
