@@ -15,12 +15,18 @@ private:
     bool approved;
 
 public:
+
     void setBookDetails(string BookName, string AuthorName, int Serial_Number)
     {
         this->BookName = BookName;
         this->AuthorName = AuthorName;
         this->S_No = Serial_Number;
     }
+
+
+    BookDetails(){}
+    BookDetails(const std::string& bookName, const string& authorName, int serialNumber)
+        : BookName(bookName), AuthorName(authorName), S_No(serialNumber) {}
 
     void insertBookDetails()
     {

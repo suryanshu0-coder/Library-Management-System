@@ -5,7 +5,7 @@
 #include<vector>
 #include<fstream>
 using namespace std;
-string ShowBookList(){
+void ShowBookList(){
 vector<string> BookLists;
 
 ifstream  BookList("../txt file/BookList.txt");
@@ -24,7 +24,6 @@ else{
          cout<< "Unable to open file"<< endl;
 }
 BookList.close();
-return "BookList.txt";
 }
  #endif
 

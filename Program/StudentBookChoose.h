@@ -14,7 +14,7 @@ class displayBookChoice{
          student.inputStudentFDetails();
          cout<<"Enter which book you want to choose  "<<student.getStudentName()<<endl;
 
-         ofstream choiceFile("../txt file/ChoiceFile.txt");
+         ofstream choiceFile("../txt file/ChoiceFile.txt", ios:: app);
          choiceFile << " Welcome to your Dashboard " <<student.getStudentName() << endl<<"Your Roll Number is "<< student.getStudentRoll_no()<<endl<<"Your choosen book are: "<<endl;
          cout<<"Your Choosen Book Details "<<endl;
 
