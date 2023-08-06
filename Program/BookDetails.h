@@ -58,7 +58,7 @@ public:
     void ShowBookList(const vector<BookDetails> &books)
     {
         cout << "Book List:\n";
-        for (const BookDetails &book : books)
+        for (const BookDetails &book : books)//range based loop
         {
             cout << "Book Details" << endl;
             cout << "Book Name: " << getBookName() << endl;

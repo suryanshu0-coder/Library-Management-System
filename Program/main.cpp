@@ -11,22 +11,8 @@
 using namespace std;
 int main()
 {
-     BookDetails requestedBook;
-     vector<BookDetails> requestedBooks;
-     vector<BookDetails> approvedBooks;
      vector<BookDetails> books;
-     vector<BookDetails> pendingRequests;
      int i;
-
-     /*
-          // Populate some sample data for demonstration purposes
-          pendingRequests.push_back(BookDetails("Book 1", "Author 1", 1));
-          pendingRequests.push_back(BookDetails("Book 2", "Author 2", 2));
-          pendingRequests.push_back(BookDetails("Book 3", "Author 3", 3));
-
-
-     */
-
 
      // making dashboard for Teacher and Student
      // for teacher
@@ -38,7 +24,9 @@ int main()
 
      if (userChoices == 'T' || userChoices == 't')
      {
-          cout << "Teacher Dashboard Login" << endl;
+          cout << "\033[1;32m"; // Set text color to bright green
+          cout << "Teacher Dashboard Login...." << endl;
+          cout << "\033[0m"; // Reset text color to default
 
           // Taking username and password as input for teacher
           cout << "Enter your username:" << endl;
@@ -51,22 +39,15 @@ int main()
           // Checking whether username and password are correct or not
           if (username == "teacher" && password == "password")
           {
-               cout << "Teacher Dashboard Login Success!" << endl;
+               cout << "\033[1;32m"; // Set text color to bright green
+               cout << "Teacher Dashboard Login Success!...." << endl;
+               cout << "\033[0m"; // Reset text color to default
 
                // Displaying the list of requested books that to be approved/rejected by the teacher.
                cout << "List of the pending requested books: " << endl;
-               for (const auto &book : pendingRequests)
-               {
-                    cout << "Book Name: " << book.getBookName() << endl;
-                    cout << "Author Name: " << book.getAuthorName() << endl;
-                    cout << "Serial Number: " << book.getSerialNumber() << endl;
-                    cout << "Approval Status: " << (book.isApproved() ? "Approved" : "Rejected") << endl;
-                    cout << "----------------------------" << endl;
-               }
 
                string line;
-
-               ifstream inputThefile("../txt file/ChoiceFile.txt");
+               ifstream inputThefile("../txt file/BookDetails.txt");
 
                if (!inputThefile.is_open())
                {
@@ -74,107 +55,19 @@ int main()
                     return 1;
                }
 
-               ;
+               
                while (getline(inputThefile, line))
                {
                     cout << line << endl;
                }
 
                inputThefile.close();
-
-               cout << "Do you want to approve or reject the book? [Y/N] " << endl;
-
-               char teacherChoice;
-               cin >> teacherChoice;
-
-               if (teacherChoice == 'Y' || teacherChoice == 'y')
-               {
-                    cout << "Enter the serial no of the book you want to approve/reject" << endl;
-                    int serialNumber;
-                    cin >> serialNumber;
-
-                    bool found = false; // variable to find whether the book ia found or not.
-
-                    for (auto &book : pendingRequests)
-                    {
-                         if (book.getSerialNumber() == serialNumber)
-                         {
-                              found = true;
-
-                              // Set the book's approval/rejection status
-                              cout << "Do you want to approve (A) or reject (R) this book? ";
-                              char approvalChoice;
-                              cin >> approvalChoice;
-
-                              if (approvalChoice == 'A' || approvalChoice == 'a')
-                              {
-                                   book.set_approved(true);
-
-                                   cout << "Book approved by the teacher." << endl;
-
-                                   // Move the approved book from pendingRequests to books vector
-                                   approvedBooks.push_back(book);
-                                   // Write the approved book details to the file "approvedBooks.txt"
-                                   ofstream approvedBookFile("../txt file/approvedBooks.txt");
-                                   if (approvedBookFile.is_open())
-                                   {
-                                        approvedBookFile << "Book Name: " << book.getBookName() << endl;
-                                        approvedBookFile << "Author Name: " << book.getAuthorName() << endl;
-                                        approvedBookFile << "Serial Number: " << book.getSerialNumber() << endl;
-                                        approvedBookFile << "----------------------------" << endl;
-                                        approvedBookFile.close();
-                                        cout << "Approved book written to file " << endl;
-                                   }
-                                   else
-                                   {
-                                        cout << "Unable to open the file." << endl;
-                                   }
-                              }
-                              else if (approvalChoice == 'R' || approvalChoice == 'r')
-                              {
-                                   book.set_approved(false);
-                                   cout << "Book rejected by the teacher." << endl;
-                              }
-                              else
-                              {
-                                   cout << "Invalid choice. Book status remains unchanged." << endl;
-                              }
-
-                              // Update the "requestedBooks.txt" file with the updated status
-                              ofstream requestedBookFile("../txt file/requestedBooks.txt");
-                              if (requestedBookFile.is_open())
-                              {
-                                   requestedBookFile << "Requested Books: " << endl;
-                                   for (const auto &book : requestedBooks)
-                                   {
-                                        requestedBookFile << "Book Name: " << book.getBookName() << endl;
-                                        requestedBookFile << "Author Name: " << book.getAuthorName() << endl;
-                                        requestedBookFile << "Serial Number: " << book.getSerialNumber() << endl;
-                                        requestedBookFile << "Status: " << (book.isApproved() ? "Approved" : "Requested") << endl;
-                                        requestedBookFile << "----------------------------" << endl;
-                                   }
-                                   requestedBookFile.close();
-                                   cout << "Requested books status updated in file." << endl;
-                              }
-                              else
-                              {
-                                   cout << "Unable to open the file." << endl;
-                              }
-
-                              break;
-                         }
-                         i++;
-                    }
-
-                    if (!found)
-                    {
-                         cout << "Book with serial number " << serialNumber << " not found." << endl;
-                    }
-               }
           }
           else
           {
-               cout << "Teacher Dashboard Login Failure!" << endl;
+               cout << "\033[1;31m"; // Set text color to bright red
+               cout << "Teacher Dashboard Login \033[0;31mFailure!\033[0m" << endl;
+               cout << "\033[0m"; // Reset text color to default
           }
      }
 
@@ -188,19 +81,29 @@ int main()
           // Book List printing
           int bookNumber, S_No, S_NoCount = 1;
           string authorName, bookName;
-          cout << "********************************" << endl;
-          cout << "Welcome to the Library!!" << endl;
+
+          cout << "\033[1;33m"; // Set text color to bright yellow
+          cout << "*********************************************" << endl;
+          cout << "*         Welcome to the Library!!          *" << endl;
+          cout << "*********************************************" << endl;
+          cout << "\033[0m"; // Reset text color to default
+
+          cout << "\033[1;32m"; // Set text color to bright green
           cout << "Enter your choice:" << endl;
-          cout << "Press '1' to Order a book." << endl;
-          cout << "Press '2' to View Book Details " << endl;
-          cout << "Press '3' to Cancel booking." << endl;
-          cout << "Press '4' to Request a new book." << endl;
+          cout << "Press '1' to \033[4;32mOrder a book.\033[0m" << endl;       // Underline "Order a book"
+          cout << "Press '2' to \033[4;32mView Book Details.\033[0m" << endl;  // Underline "View Book Details"
+          cout << "Press '3' to \033[4;32mCancel booking.\033[0m" << endl;     // Underline "Cancel booking"
+          cout << "Press '4' to \033[4;32mRequest a new book.\033[0m" << endl; // Underline "Request a new book"
+          cout << "\033[1;31m";                                                // Set text color to bright red
           cout << "Press '0' to Exit." << endl;
+          cout << "\033[0m"; // Reset text color to default
 
           int choice;
           do
           {
+               cout << "\033[1;31m"; // Set text color to dark red
                cout << "Enter your choice:" << endl;
+               cout << "\033[0m";
                cin >> choice;
                switch (choice)
                {
@@ -249,24 +152,6 @@ int main()
                     break;
                }
 
-               case 4:
-               {
-                    string newBookName, newAuthorName;
-                    cout << "Enter the name of the book you want to request:" << endl;
-                    cin.ignore(); // Ignore any previous newline character in the input buffer
-                    getline(cin, newBookName);
-
-                    cout << "Enter the name of the author of the book:" << endl;
-                    getline(cin, newAuthorName);
-
-                    // Create a new BookDetails object for the requested book
-                    requestedBook.setBookDetails(newBookName, newAuthorName, 1); // 1 as serial number for requested books
-                    approvedBooks.push_back(requestedBook);
-
-                    cout << "Book requested successfully." << endl;
-                    break;
-               }
-
                default:
                     cout << "Invalid choice. " << endl
                          << "Please select a valid option." << endl;
@@ -310,10 +195,6 @@ int main()
           displayBookChoice BookChoosenByStudent;
           cout << endl;
           BookChoosenByStudent.displayChoice();
-
-          // Add the requested book to the vector shared between teacher and student.
-          requestedBooks.push_back(requestedBook);
-          cout << "Book requested successfully." << endl;
      }
      else
      {

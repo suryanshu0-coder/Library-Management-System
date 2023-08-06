@@ -8,7 +8,7 @@ using namespace std;
 void ShowBookList(){
 vector<string> BookLists;
 
-ifstream  BookList("../txt file/BookList.txt");
+ifstream  BookList("../txt file/BookList.txt", ios::app);
 string line;
 
 if(BookList.is_open()){
