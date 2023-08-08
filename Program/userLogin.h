@@ -1,59 +1,94 @@
 #ifndef USERLOGIN_H
 #define USERLOGIN_H
+
 #include <iostream>
 #include <string>
+#include <fstream>
+
 using namespace std;
 
 class UserLoginSection
 {
 private:
-         string username;
-         string password;
-         string inputUsername, inputPassword;
-         bool loginSuccessful;
+    string username;
+    string password;
+    bool loginSuccessful;
 
 public:
-         string getUsername()
-         {
-                  return this->username;
-         }
-         string getPassword()
-         {
-                  return this->password;
-         }
+    UserLoginSection() : loginSuccessful(false) {}
 
-         void CreateAccount()
-         {
-                  cout << "Create the new username: " << endl;
-                  cin.ignore();
-                  getline(cin, username);
+    void setUsername(const string& newUsername)
+    {
+        username = newUsername;
+    }
 
-                  cout << "Create the new password: " << endl;
-                  getline(cin, password);
-         }
+    void setPassword(const string& newPassword)
+    {
+        password = newPassword;
+    }
 
-         void LoginAccount()
-         {
+    void CreateAccount()
+    {
+        cout << "Create a new username: " << endl;
+        cin.ignore();
+        getline(cin, username);
 
-                  cout << "Enter the username: " << endl;
-                  getline(cin, inputUsername);
+        cout << "Create a new password: " << endl;
+        getline(cin, password);
 
-                  cout << "Enter the password: " << endl;
-                  getline(cin, inputPassword);
+        // Save the credentials to a file (e.g., "StudentCredentials.txt")
+        ofstream credentialsFile("../txt file/StudentCredentials.txtStudentCredentials.txt", ios::app);
+        if (credentialsFile.is_open())
+        {
+            credentialsFile<<"username : " << username << endl << "password : " << password << endl;
+            credentialsFile.close();
+            cout << "Account created successfully!" << endl;
+        }
+        else
+        {
+            cout << "Unable to create an account." << endl;
+        }
+    }
 
-                  if (this->username == inputUsername && this->password == inputPassword)
-                  {
-                           cout << "Login Success!" << endl;
-                  }
-                  else
-                  {
-                           cout << "Login Failed!" << endl;
-                  }
-         }
+    void LoginAccount()
+    {
+        cout << "Enter your username: " << endl;
+        cin.ignore();
+        getline(cin, username);
 
-         bool isLoginSuccessful()
-         {
-                  return loginSuccessful;
-         }
+        cout << "Enter your password: " << endl;
+        getline(cin, password);
+
+        ifstream credentialsFile("StudentCredentials.txt");
+        string storedUsername, storedPassword;
+
+        loginSuccessful = false;
+
+        while (credentialsFile >> storedUsername >> storedPassword)
+        {
+            if (storedUsername == username && storedPassword == password)
+            {
+                loginSuccessful = true;
+                break;
+            }
+        }
+
+        if (loginSuccessful)
+        {
+            cout << "Login Success!" << endl;
+        }
+        else
+        {
+            cout << "Login Failed! Invalid username or password." << endl;
+        }
+
+        credentialsFile.close();
+    }
+
+    bool isLoginSuccessful()
+    {
+        return loginSuccessful;
+    }
 };
+
 #endif
