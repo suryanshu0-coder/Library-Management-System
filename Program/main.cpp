@@ -12,7 +12,7 @@
 #include "userLogin.h"
 #include "fine.h"
 
-using namespace std;
+// using namespace std;
 
 int main()
 {
@@ -22,26 +22,27 @@ int main()
 
      // making dashboard for Teacher and Student
      // for teacher
-     char userChoices;
+     string userChoices;
      string username, password;
      cout << "Are you teacher or a student?" << endl;
-     cout << "Enter 'T' for teacher and and 'S' for student" << endl;
      cin >> userChoices;
 
-     if (userChoices == 'T' || userChoices == 't')
+     if (userChoices == "Teacher" || userChoices == "teacher")
      {
           TeacherDashboard teacherDashboard("BookDetails.txt");
           teacherDashboard.login();
      }
 
-     else if (userChoices == 'S' || userChoices == 's')
+     else if (userChoices == "Student" || userChoices == "student")
      {
 
           UserLoginSection u1;
           u1.CreateAccount();
           u1.LoginAccount();
 
-          // Book List printing
+          // if (u1.isLoginSuccessful())
+          //{
+          //  Book List printing
           int bookNumber, S_No, S_NoCount = 1;
           string authorName, bookName;
 
@@ -82,7 +83,11 @@ int main()
 
                case 2:
                {
-                    ShowBookList();
+                    cout << "List of Ordered Books:" << endl;
+                    for (int i = 0; i < books.size(); i++)
+                    {
+                         cout << i + 1 << ". " << books[i].getBookName() << endl;
+                    }
                     break;
                }
 
@@ -124,6 +129,12 @@ int main()
                     getline(cin, username);
 
                     fineSystem.calculateFine(username);
+                    break;
+               }
+
+               case 0:
+               {
+                    cout<<"Exiting.........."<<endl;
                     break;
                }
 
@@ -170,6 +181,11 @@ int main()
           displayBookChoice BookChoosenByStudent;
           cout << endl;
           BookChoosenByStudent.displayChoice();
+          // }
+          // else
+          // {
+          //      cout << "Login unsuccessful. Exiting..." << endl;
+          // }
      }
      else
      {

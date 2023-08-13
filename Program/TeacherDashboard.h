@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include<cstdlib>
 using namespace std;
 
 class TeacherDashboard
@@ -48,7 +49,7 @@ public:
     {
         char userCho;
         int choice;
-
+        system("cls");
         cout << "\033[1;34m"; // Set text color to bright blue
         cout << "Teacher Dashboard Options:\n";
         cout << "\033[0m";    // Reset text color to default
@@ -58,13 +59,6 @@ public:
         cout << "\033[0m"; // Reset text color to default
         do
         {
-            cout << "\033[1;34m"; // Set text color to bright blue
-            cout << "Teacher Dashboard Options:\n";
-            cout << "\033[0m";    // Reset text color to default
-            cout << "\033[1;33m"; // Set text color to bright yellow
-            cout << "1. View Pending Book Requests\n";
-            cout << "0. Exit\n";
-            cout << "\033[0m"; // Reset text color to default
             cout << "Enter your choice: ";
             cin >> userCho;
 

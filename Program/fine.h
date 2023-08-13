@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include <ctime> // Include the ctime header for time functions
 using namespace std;
+
 class Fine
 {
 private:
@@ -30,7 +32,16 @@ public:
         }
 
         int numLateBooks = lateBooks.size();
-        int fineAmount = numLateBooks * finePerDay;
+        
+        // Calculate days late based on current date and 15-day period
+        time_t currentTime;
+        time(&currentTime); // Get the current time
+        struct tm fifteenDaysAgo;
+        currentTime -= 15 * 24 * 60 * 60; // Subtract 15 days in seconds
+        fifteenDaysAgo = *localtime(&currentTime);
+        
+        // Calculate fine amount based on days late
+        int fineAmount = numLateBooks * finePerDay * (15 - fifteenDaysAgo.tm_mday);
         totalFine += fineAmount;
 
         cout << "Dear " << username << ", you have " << numLateBooks << " late book(s):" << endl;
